@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="robots" content="noindex, nofollow">
+    <title>ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛ | Official Vault</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@400;700&display=swap');
+
+        :root {
+            --bg: #000000;
+            --surface: #0a0a0a;
+            --border: #1a1a1a;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+            --cmd-red: #ff3333;
+            --success: #00ff41;
+            --accent-font: 'Inter', sans-serif;
+            --mono-font: 'Fira Code', monospace;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--accent-font);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Ambient Background Effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: -10%; left: -10%; width: 120%; height: 120%;
+            background: radial-gradient(circle at 50% 50%, #110000 0%, #000 70%);
+            z-index: -1;
+        }
+
+        /* Header Branding */
+        header {
+            padding: 15px 25px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        header .brand { font-weight: 700; letter-spacing: 2px; font-size: 14px; color: var(--cmd-red); }
+        header #clock { font-family: var(--mono-font); font-size: 12px; color: var(--text-dim); }
+
+        /* Main Viewport */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+
+        /* --- PROFESSIONAL PORTFOLIO SECTION --- */
+        .portfolio-container {
+            max-width: 600px;
+            margin: 20px auto;
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .profile-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .card-banner {
+            height: 5px;
+            background: linear-gradient(90deg, var(--cmd-red), #550000);
+        }
+
+        .card-content { padding: 30px; }
+
+        .hero-text h1 { margin: 0; font-size: 28px; letter-spacing: -1px; }
+        .hero-text p { color: var(--text-dim); margin: 5px 0 25px 0; font-size: 14px; }
+
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .data-item .label { font-size: 10px; text-transform: uppercase; color: var(--cmd-red); font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .data-item .value { font-size: 14px; font-weight: 500; }
+
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+        .tag { background: #111; border: 1px solid var(--border); padding: 6px 12px; font-size: 11px; color: #ccc; border-radius: 3px; }
+
+        .btn-link {
+            display: block;
+            background: var(--text-main);
+            color: #000;
+            text-align: center;
+            padding: 15px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .btn-link:hover { background: var(--cmd-red); color: #fff; transform: translateY(-2px); }
+
+        /* --- COMMAND CENTER (SCROLLABLE LOGS) --- */
+        .terminal-logs {
+            max-width: 600px;
+            margin: 30px auto 100px auto;
+            font-family: var(--mono-font);
+            border-top: 1px dashed var(--border);
+            padding-top: 20px;
+        }
+
+        .line { font-size: 12px; margin-bottom: 8px; line-height: 1.6; word-break: break-all; }
+        .p-sys { color: var(--text-dim); }
+        .p-user { color: var(--cmd-red); font-weight: bold; }
+        .recon-box {
+            background: rgba(255, 51, 51, 0.05);
+            border-left: 2px solid var(--cmd-red);
+            padding: 15px;
+            margin: 10px 0;
+            color: var(--success);
+        }
+
+        /* --- STICKY INPUT BAR --- */
+        .input-bar {
+            position: fixed;
+            bottom: 0; width: 100%;
+            background: #050505;
+            border-top: 1px solid var(--border);
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .input-bar input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: var(--mono-font);
+            font-size: 14px;
+            width: 100%;
+            margin-left: 10px;
+            outline: none;
+        }
+
+        @media (max-width: 600px) {
+            .data-grid { grid-template-columns: 1fr; }
+            .hero-text h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand">ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛ //</div>
+    <div id="clock">00:00:00</div>
+</header>
+
+<main id="main-scroller">
+    <div class="portfolio-container">
+        <div class="profile-card">
+            <div class="card-banner"></div>
+            <div class="card-content">
+                <div class="hero-text">
+                    <h1>ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜct</h1>
+                    <p>Advanced Network Exploitation & Kernel Specialist</p>
+                </div>
+
+                <div class="data-grid">
+                    <div class="data-item"><span class="label">Expertise</span><span class="value">Bypass Protocols</span></div>
+                    <div class="data-item"><span class="label">Experience</span><span class="value">Unlimited / Pro</span></div>
+                    <div class="data-item"><span class="label">Platform</span><span class="value">Linux / Android VM</span></div>
+                    <div class="data-item"><span class="label">Status</span><span class="value" style="color:var(--success)">● System Active</span></div>
+                </div>
+
+                <div class="skill-tags">
+                    <span class="tag">#VPN_BINARY</span><span class="tag">#DPI_BYPASS</span><span class="tag">#ENCRYPTION</span><span class="tag">#KERNEL_MOD</span>
+                </div>
+
+                <a href="https://t.me/your_telegram" class="btn-link">Initialize Telegram Node</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="terminal-logs" id="terminal-out">
+        <div class="line p-sys">[SYSTEM] Boot sequence initiated...</div>
+        <div class="line p-sys">[SYSTEM] Ready for user commands. Type 'recon' or 'help'.</div>
+    </div>
+</main>
+
+<div class="input-bar">
+    <span class="p-user">guest@vault:~$</span>
+    <input type="text" id="cmd-in" placeholder="Execute command..." autocomplete="off" spellcheck="false">
+</div>
+
+<script>
+    const termOut = document.getElementById('terminal-out');
+    const cmdIn = document.getElementById('cmd-in');
+    const scroller = document.getElementById('main-scroller');
+
+    // Live Clock
+    setInterval(() => {
+        document.getElementById('clock').innerText = new Date().toTimeString().split(' ')[0];
+    }, 1000);
+
+    function print(text, type = 'normal') {
+        const div = document.createElement('div');
+        div.className = 'line';
+        if(type === 'cmd') div.innerHTML = `<span class="p-user">guest@vault:~$</span> ${text}`;
+        else if(type === 'sys') div.innerHTML = `<span class="p-sys">[log] ${text}</span>`;
+        else div.innerHTML = text;
+        termOut.appendChild(div);
+        scroller.scrollTop = scroller.scrollHeight;
+    }
+
+    // Dynamic Device Recon Data
+    async function getReconReport() {
+        const conn = navigator.connection || {};
+        const b = await navigator.getBattery().catch(() => ({ level: 0, charging: false }));
+        
+        return `
+            <div class="recon-box">
+                <b>>> REMOTE_DATA_PULL_SUCCESSFUL</b><br>
+                -----------------------------------<br>
+                CORE_ISP  : ${navigator.vendor || "GLOBAL_GATEWAY"}<br>
+                SPEED_LVL : ${conn.effectiveType || "FAST_LINK"}<br>
+                POWER     : ${Math.round(b.level*100)}% (CHRG: ${b.charging})<br>
+                HARDWARE  : ${navigator.platform} (${navigator.hardwareConcurrency} Cores)<br>
+                GPU_VEND  : ${getGPU()}<br>
+                LATENCY   : ${Math.floor(Math.random()*40+5)}ms<br>
+                -----------------------------------
+            </div>
+        `;
+    }
+
+    function getGPU() {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl');
+        const debugInfo = gl ? gl.getExtension('WEBGL_debug_renderer_info') : null;
+        return debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL).split(' ').pop() : "Mobile_Mali_Adreno";
+    }
+
+    cmdIn.addEventListener('keydown', async (e) => {
+        if(e.key === 'Enter') {
+            const val = cmdIn.value.trim();
+            if(!val) return;
+
+            print(val, 'cmd');
+            cmdIn.value = "";
+
+            if(val.toLowerCase() === 'help') {
+                print("Available: recon, clear, status, whoami", "sys");
+            } else if(val.toLowerCase() === 'clear') {
+                termOut.innerHTML = "";
+            } else if(val.toLowerCase() === 'status') {
+                print("Encrypted Tunnel: ACTIVE | Payload: ARMED", "sys");
+            } else {
+                print("SEARCHING DATABASE...", "sys");
+                const report = await getReconReport();
+                print(report);
+            }
+        }
+    });
+
+    // Auto focus only if not selecting text (User Friendly)
+    document.addEventListener('click', (e) => {
+        if(window.getSelection().toString() === "" && e.target.tagName !== 'A') {
+            cmdIn.focus();
+        }
+    });
+
+    // Security
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    window.addEventListener('keydown', e => {
+        if(e.ctrlKey && ['u', 's', 'i'].includes(e.key.toLowerCase())) e.preventDefault();
+    });
+</script>
+
+</body>
+</html>
