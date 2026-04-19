@@ -1,72 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-
+   <script>
   (function() {
-
-    // Configuration
-
-    const targetPath = "/dlt-cache-01 "; // Your repo path
-
-    const targetHost = "ithalamin.github.io"; // Your GitHub subdomain
-
     const currentHost = window.location.hostname;
-
     const currentPath = window.location.pathname;
 
+    // যদি ইউআরএল এ github.io থাকে
+    if (currentHost.includes("github.io")) {
+      // এটি ব্রাউজারকে রিডাইরেক্ট করার আগেই থামিয়ে দেবে
+      if (window.stop) {
+        window.stop(); 
+      } else {
+        document.execCommand("Stop");
+      }
 
-
-    // Check if the user is coming via the default GitHub URL
-
-    if (currentHost === targetHost && currentPath.startsWith(targetPath)) {
-
-      // Overwrite the DOM with a professional English error message
-
+      // পুরো পেজকে এরর মেসেজ দিয়ে রিপ্লেস করে দিবে
       document.documentElement.innerHTML = `
-
-        <!DOCTYPE html>
-
-        <html lang="en">
-
-        <head>
-
-          <meta charset="UTF-8">
-
-          <title>Access Denied</title>
-
-          <style>
-
-            body { 
-
-              background-color: #0a0a0a; 
-
-              color: #d1d1d1; 
-
-              font-family: 'Courier New', monospace; 
-
-              display: flex; 
-
-              justify-content: center; 
-
-              align-items: center; 
-
-              height: 100vh; 
-
-              margin: 0; 
-
-              flex-direction: column;
-
-            }
-
-            .error-box { border: 1px solid #333; padding: 40px; border-radius: 5px; text-align: center; }
-
-            h1 { color: #ff4d4d; font-size: 1.5rem; }
-
-            p { font-size: 0.9rem; color: #888; }
-
-          </style>
-
+        <body style="background:#000; color:#ff4d4d; font-family:monospace; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
+          <div style="border:1px dashed #333; padding:20px; text-align:center;">
+            <h2 style="margin:0;">[ SYSTEM_ACCESS_DENIED ]</h2>
+            <p style="color:#888;">The deployment at <u>${currentHost}${currentPath}</u> is strictly restricted.</p>
+            <p style="font-size:12px;">Redirect blocked by security policy.</p>
+          </div>
+        </body>`;
+      
+      // ব্যাক বোতাম ছাড়া অন্য কোথাও যাওয়ার রাস্তা বন্ধ
+      history.pushState(null, null, window.location.href);
+    }
+  })();
+</script>
         </head>
 
         <body>
