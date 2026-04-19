@@ -1,60 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-   <script>
+<script>
+
   (function() {
+
+    // This script kills access only from the specific GitHub subdomain
+
+    const forbidden = "ithalamin.github.io/dlt-cache-01"; 
+
     const currentHost = window.location.hostname;
-    const currentPath = window.location.pathname;
 
-    // যদি ইউআরএল এ github.io থাকে
-    if (currentHost.includes("github.io")) {
-      // এটি ব্রাউজারকে রিডাইরেক্ট করার আগেই থামিয়ে দেবে
-      if (window.stop) {
-        window.stop(); 
-      } else {
-        document.execCommand("Stop");
-      }
 
-      // পুরো পেজকে এরর মেসেজ দিয়ে রিপ্লেস করে দিবে
-      document.documentElement.innerHTML = `
-        <body style="background:#000; color:#ff4d4d; font-family:monospace; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
-          <div style="border:1px dashed #333; padding:20px; text-align:center;">
-            <h2 style="margin:0;">[ SYSTEM_ACCESS_DENIED ]</h2>
-            <p style="color:#888;">The deployment at <u>${currentHost}${currentPath}</u> is strictly restricted.</p>
-            <p style="font-size:12px;">Redirect blocked by security policy.</p>
-          </div>
-        </body>`;
+
+    if (currentHost === forbidden) {
+
+      // Immediate Execution Stop
+
+      window.stop(); 
+
       
-      // ব্যাক বোতাম ছাড়া অন্য কোথাও যাওয়ার রাস্তা বন্ধ
-      history.pushState(null, null, window.location.href);
-    }
-  })();
-</script>
-        </head>
 
-        <body>
+      // Replace the entire page with an error message
 
-          <div class="error-box">
+      document.documentElement.innerHTML = `
 
-            <h1>403 - Forbidden Access</h1>
+        <body style="background:#000; color:#ff0000; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
 
-            <p>The system deployment is inactive at this endpoint.</p>
+          <div style="text-align:center; border:1px solid #444; padding:50px;">
 
-            <p>Access via direct production gateway is required.</p>
+            <h1 style="font-size:2rem; margin-bottom:10px;">403 - FORBIDDEN</h1>
+
+            <p style="color:#888;">Direct access via GitHub subdomain is restricted.</p>
+
+            <p style="font-size:12px; color:#444;">Please use the official production gateway.</p>
 
           </div>
 
-        </body>
-
-        </html>`;
-
-      window.stop(); // Stop any further scripts from executing
+        </body>`;
 
     }
 
   })();
 
 </script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex, nofollow">
